@@ -1,0 +1,441 @@
+2022-12-22 14:15:30.941 ERROR 50772 --- [main] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'logging.level' to java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel>
+	at org.springframework.boot.context.properties.bind.Binder.handleBindError(Binder.java:363) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:323) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:308) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:238) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:212) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.setLogLevels(LoggingApplicationListener.java:368) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeFinalLoggingLevels(LoggingApplicationListener.java:335) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:282) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:239) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:216) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) [spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120) [spring-boot-test-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:123) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:118) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener.prepareTestInstance(SpringBootDependencyInjectionTestExecutionListener.java:43) [spring-boot-test-autoconfigure-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:244) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.13.jar:4.13]
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69) [junit-rt.jar:?]
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33) [junit-rt.jar:?]
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:221) [junit-rt.jar:?]
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:54) [junit-rt.jar:?]
+Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel>]
+	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:321) ~[spring-core-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:194) ~[spring-core-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter$CompositeConversionService.convert(BindConverter.java:170) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:96) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:88) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.MapBinder.bindAggregate(MapBinder.java:64) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.AggregateBinder.bind(AggregateBinder.java:56) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.lambda$bindAggregate$3(Binder.java:414) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:571) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder$Context.access$100(Binder.java:512) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bindAggregate(Binder.java:414) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:375) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:319) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	... 45 more
+
+2022-12-22 14:15:30.994 ERROR 50772 --- [main] o.s.b.SpringApplication                  : Application run failed
+
+org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'logging.level' to java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel>
+	at org.springframework.boot.context.properties.bind.Binder.handleBindError(Binder.java:363) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:323) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:308) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:238) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:212) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.setLogLevels(LoggingApplicationListener.java:368) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeFinalLoggingLevels(LoggingApplicationListener.java:335) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:282) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:239) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:216) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) [spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) [spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120) [spring-boot-test-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:123) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener.outputConditionEvaluationReport(SpringBootDependencyInjectionTestExecutionListener.java:53) [spring-boot-test-autoconfigure-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener.prepareTestInstance(SpringBootDependencyInjectionTestExecutionListener.java:46) [spring-boot-test-autoconfigure-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:244) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.13.jar:4.13]
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69) [junit-rt.jar:?]
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33) [junit-rt.jar:?]
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:221) [junit-rt.jar:?]
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:54) [junit-rt.jar:?]
+Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel>]
+	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:321) ~[spring-core-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:194) ~[spring-core-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter$CompositeConversionService.convert(BindConverter.java:170) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:96) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:88) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.MapBinder.bindAggregate(MapBinder.java:64) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.AggregateBinder.bind(AggregateBinder.java:56) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.lambda$bindAggregate$3(Binder.java:414) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:571) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder$Context.access$100(Binder.java:512) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bindAggregate(Binder.java:414) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:375) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:319) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	... 44 more
+
+2022-12-22 14:15:30.996 ERROR 50772 --- [main] o.s.t.c.TestContextManager               : Caught exception while allowing TestExecutionListener [org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4f20a5e0] to prepare test instance [test.repositoryTest@54da32dc]
+
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:132) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:123) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:118) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:83) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener.prepareTestInstance(SpringBootDependencyInjectionTestExecutionListener.java:43) ~[spring-boot-test-autoconfigure-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:244) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306) [junit-4.13.jar:4.13]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413) [junit-4.13.jar:4.13]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.13.jar:4.13]
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69) [junit-rt.jar:?]
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33) [junit-rt.jar:?]
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:221) [junit-rt.jar:?]
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:54) [junit-rt.jar:?]
+Caused by: org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'logging.level' to java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel>
+	at org.springframework.boot.context.properties.bind.Binder.handleBindError(Binder.java:363) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:323) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:308) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:238) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:212) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.setLogLevels(LoggingApplicationListener.java:368) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeFinalLoggingLevels(LoggingApplicationListener.java:335) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:282) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:239) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:216) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120) ~[spring-boot-test-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	... 26 more
+Caused by: org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [java.lang.String] to type [java.util.Map<java.lang.String, org.springframework.boot.logging.LogLevel>]
+	at org.springframework.core.convert.support.GenericConversionService.handleConverterNotFound(GenericConversionService.java:321) ~[spring-core-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.core.convert.support.GenericConversionService.convert(GenericConversionService.java:194) ~[spring-core-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter$CompositeConversionService.convert(BindConverter.java:170) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:96) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.BindConverter.convert(BindConverter.java:88) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.MapBinder.bindAggregate(MapBinder.java:64) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.AggregateBinder.bind(AggregateBinder.java:56) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.lambda$bindAggregate$3(Binder.java:414) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder$Context.withIncreasedDepth(Binder.java:571) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder$Context.access$100(Binder.java:512) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bindAggregate(Binder.java:414) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bindObject(Binder.java:375) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:319) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:308) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:238) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.properties.bind.Binder.bind(Binder.java:212) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.setLogLevels(LoggingApplicationListener.java:368) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeFinalLoggingLevels(LoggingApplicationListener.java:335) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:282) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:239) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:216) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:127) ~[spring-context-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:80) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:53) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:345) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:120) ~[spring-boot-test-2.3.4.RELEASE.jar:2.3.4.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124) ~[spring-test-5.2.9.RELEASE.jar:5.2.9.RELEASE]
+	... 26 more
+
+2022-12-22 14:16:38.333  INFO 50831 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 50831 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:16:38.341  INFO 50831 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:16:38.666  INFO 50831 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:16:38.731  INFO 50831 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:16:39.349  INFO 50831 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:16:39.349  INFO 50831 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:16:39.350  INFO 50831 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:16:39.361  INFO 50831 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:16:39.494  INFO 50831 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:16:39.790  INFO 50831 --- [main] t.repositoryTest                         : Started repositoryTest in 1.839 seconds (JVM running for 2.994)
+2022-12-22 14:16:40.065  INFO 50831 --- [main] Driver                                   : Direct driver instance 685193713 created for server address 127.0.0.1:7687
+2022-12-22 14:16:40.414  INFO 50831 --- [main] t.repositoryTest                         : testDynamicRelationShip:[]
+2022-12-22 14:16:40.421  INFO 50831 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@28d739f1 
+2022-12-22 14:17:05.076  INFO 50857 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 50857 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:17:05.084  INFO 50857 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:17:05.379  INFO 50857 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:17:05.440  INFO 50857 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:17:06.091  INFO 50857 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:17:06.092  INFO 50857 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:17:06.093  INFO 50857 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:17:06.105  INFO 50857 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:17:06.245  INFO 50857 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:17:06.561  INFO 50857 --- [main] t.repositoryTest                         : Started repositoryTest in 1.818 seconds (JVM running for 2.896)
+2022-12-22 14:17:06.836  INFO 50857 --- [main] Driver                                   : Direct driver instance 1434940020 created for server address 127.0.0.1:7687
+2022-12-22 14:17:07.224  INFO 50857 --- [main] t.repositoryTest                         : testFindByName:{
+	"born":1964,
+	"id":1,
+	"name":"Keanu Reeves"
+}
+2022-12-22 14:17:07.273  INFO 50857 --- [main] t.repositoryTest                         : result:[
+	{
+		"born":1964,
+		"id":1,
+		"name":"Keanu Reeves"
+	},
+	{
+		"born":1967,
+		"id":2,
+		"name":"Carrie-Anne Moss"
+	},
+	{
+		"born":1961,
+		"id":3,
+		"name":"Laurence Fishburne"
+	},
+	{
+		"born":1960,
+		"id":4,
+		"name":"Hugo Weaving"
+	},
+	{
+		"born":1967,
+		"id":5,
+		"name":"Lilly Wachowski"
+	},
+	{
+		"born":1965,
+		"id":6,
+		"name":"Lana Wachowski"
+	},
+	{
+		"born":1952,
+		"id":7,
+		"name":"Joel Silver"
+	},
+	{
+		"born":1978,
+		"id":8,
+		"name":"Emil Eifrem"
+	},
+	{
+		"born":1975,
+		"id":12,
+		"name":"Charlize Theron"
+	},
+	{
+		"born":1940,
+		"id":13,
+		"name":"Al Pacino"
+	}
+]
+2022-12-22 14:17:07.290 ERROR 50857 --- [main] o.n.o.c.GraphEntityMapper                : Found more than one matching @RelationshipEntity for (53)-[ACTED_IN]->(52) but cannot tell which one to use
+2022-12-22 14:17:07.296  INFO 50857 --- [main] t.repositoryTest                         : testActed_In:[]
+2022-12-22 14:17:07.307 ERROR 50857 --- [main] o.n.o.c.GraphEntityMapper                : Found more than one matching @RelationshipEntity for (107)-[ACTED_IN]->(105) but cannot tell which one to use
+2022-12-22 14:17:07.311  INFO 50857 --- [main] t.repositoryTest                         : testDynamicRelationShip:[]
+2022-12-22 14:17:07.316  INFO 50857 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@55877274 
+2022-12-22 14:19:10.744  INFO 50970 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 50970 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:19:10.752  INFO 50970 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:19:11.047  INFO 50970 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:19:11.117  INFO 50970 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:19:11.804  INFO 50970 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:19:11.804  INFO 50970 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:19:11.805  INFO 50970 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:19:11.816  INFO 50970 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:19:11.948  INFO 50970 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:19:12.302  INFO 50970 --- [main] t.repositoryTest                         : Started repositoryTest in 1.9 seconds (JVM running for 3.019)
+2022-12-22 14:19:12.591  INFO 50970 --- [main] Driver                                   : Direct driver instance 394840929 created for server address 127.0.0.1:7687
+2022-12-22 14:19:12.990  INFO 50970 --- [main] t.repositoryTest                         : testActed_In:[
+	{
+		"id":69,
+		"movie":{
+			"id":52,
+			"relationship":[],
+			"released":1997,
+			"tagline":"A comedy from the heart that goes for the throat.",
+			"title":"As Good as It Gets"
+		},
+		"person":{
+			"born":1963,
+			"id":53,
+			"name":"Helen Hunt",
+			"relationship":[
+				{"$ref":"$[0]"}
+			]
+		},
+		"roles":[
+			"Carol Connelly"
+		]
+	}
+]
+2022-12-22 14:19:12.999  INFO 50970 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@1788cb61 
+2022-12-22 14:19:39.167  INFO 50997 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 50997 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:19:39.177  INFO 50997 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:19:39.475  INFO 50997 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:19:39.532  INFO 50997 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 50ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:19:40.141  INFO 50997 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:19:40.141  INFO 50997 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:19:40.142  INFO 50997 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:19:40.152  INFO 50997 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:19:40.286  INFO 50997 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:19:40.614  INFO 50997 --- [main] t.repositoryTest                         : Started repositoryTest in 1.792 seconds (JVM running for 2.922)
+2022-12-22 14:19:40.891  INFO 50997 --- [main] Driver                                   : Direct driver instance 1778993228 created for server address 127.0.0.1:7687
+2022-12-22 14:19:41.217 ERROR 50997 --- [main] o.n.o.c.GraphEntityMapper                : Found more than one matching @RelationshipEntity for (53)-[ACTED_IN]->(52) but cannot tell which one to use
+2022-12-22 14:19:41.291  INFO 50997 --- [main] t.repositoryTest                         : testActed_In:[]
+2022-12-22 14:19:41.299  INFO 50997 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@6a09484c 
+2022-12-22 14:20:16.200  INFO 51028 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 51028 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:20:16.209  INFO 51028 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:20:16.497  INFO 51028 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:20:16.550  INFO 51028 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:20:17.200  INFO 51028 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:20:17.200  INFO 51028 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:20:17.201  INFO 51028 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:20:17.212  INFO 51028 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:20:17.354  INFO 51028 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:20:17.680  INFO 51028 --- [main] t.repositoryTest                         : Started repositoryTest in 1.864 seconds (JVM running for 2.944)
+2022-12-22 14:20:17.985  INFO 51028 --- [main] Driver                                   : Direct driver instance 1483522397 created for server address 127.0.0.1:7687
+2022-12-22 14:20:18.342  INFO 51028 --- [main] t.repositoryTest                         : testActed_In:[]
+2022-12-22 14:20:18.349  INFO 51028 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@586cc15d 
+2022-12-22 14:22:20.200  INFO 51134 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 51134 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:22:20.210  INFO 51134 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:22:20.523  INFO 51134 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:22:20.585  INFO 51134 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:22:21.196  INFO 51134 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:22:21.196  INFO 51134 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:22:21.198  INFO 51134 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:22:21.215  INFO 51134 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:22:21.375  INFO 51134 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:22:21.716  INFO 51134 --- [main] t.repositoryTest                         : Started repositoryTest in 1.919 seconds (JVM running for 3.026)
+2022-12-22 14:22:22.026  INFO 51134 --- [main] Driver                                   : Direct driver instance 1357663228 created for server address 127.0.0.1:7687
+2022-12-22 14:22:22.378  INFO 51134 --- [main] t.repositoryTest                         : testDynamicRelationShip:[]
+2022-12-22 14:22:22.385  INFO 51134 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@50ec4bfc 
+2022-12-22 14:22:35.600  INFO 51150 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 51150 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:22:35.608  INFO 51150 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:22:35.903  INFO 51150 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:22:35.962  INFO 51150 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:22:36.600  INFO 51150 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:22:36.600  INFO 51150 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:22:36.601  INFO 51150 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:22:36.612  INFO 51150 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:22:36.747  INFO 51150 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:22:36.979  INFO 51150 --- [main] t.repositoryTest                         : Started repositoryTest in 1.735 seconds (JVM running for 2.812)
+2022-12-22 14:22:37.295  INFO 51150 --- [main] Driver                                   : Direct driver instance 1513124396 created for server address 127.0.0.1:7687
+2022-12-22 14:22:37.623  INFO 51150 --- [main] t.repositoryTest                         : testDynamicRelationShip:[]
+2022-12-22 14:22:37.630  INFO 51150 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@5a30722c 
+2022-12-22 14:26:05.323  INFO 51365 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 51365 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:26:05.333  INFO 51365 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:26:05.681  INFO 51365 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:26:05.744  INFO 51365 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:26:06.433  INFO 51365 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:26:06.434  INFO 51365 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:26:06.434  INFO 51365 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:26:06.446  INFO 51365 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:26:06.597  INFO 51365 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:26:06.933  INFO 51365 --- [main] t.repositoryTest                         : Started repositoryTest in 2.003 seconds (JVM running for 3.062)
+2022-12-22 14:26:07.249  INFO 51365 --- [main] Driver                                   : Direct driver instance 319618119 created for server address 127.0.0.1:7687
+2022-12-22 14:26:07.623  INFO 51365 --- [main] t.repositoryTest                         : testDynamicRelationShip:[]
+2022-12-22 14:26:07.631  INFO 51365 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@130cfc47 
+2022-12-22 14:46:51.963  INFO 53007 --- [main] t.repositoryTest                         : Starting repositoryTest on zhaohaoguang.local with PID 53007 (started by zhaohaoguang in /Users/zhaohaoguang/Desktop/Work/test/Neo4jTest)
+2022-12-22 14:46:51.976  INFO 53007 --- [main] t.repositoryTest                         : No active profile set, falling back to default profiles: default
+2022-12-22 14:46:52.342  INFO 53007 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2022-12-22 14:46:52.406  INFO 53007 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55ms. Found 3 Neo4j repository interfaces.
+2022-12-22 14:46:53.063  INFO 53007 --- [main] o.n.o.m.DomainInfo                       : Starting Post-processing phase
+2022-12-22 14:46:53.063  INFO 53007 --- [main] o.n.o.m.DomainInfo                       : Building byLabel lookup maps
+2022-12-22 14:46:53.064  INFO 53007 --- [main] o.n.o.m.DomainInfo                       : Building interface class map for 18 classes
+2022-12-22 14:46:53.076  INFO 53007 --- [main] o.n.o.m.DomainInfo                       : Post-processing complete
+2022-12-22 14:46:53.225  INFO 53007 --- [main] o.s.d.n.m.Neo4jMappingContext            : Neo4jMappingContext initialisation completed
+2022-12-22 14:46:53.587  INFO 53007 --- [main] t.repositoryTest                         : Started repositoryTest in 2.073 seconds (JVM running for 3.458)
+2022-12-22 14:46:54.048  INFO 53007 --- [main] Driver                                   : Direct driver instance 725873428 created for server address 127.0.0.1:7687
+2022-12-22 14:46:54.525  INFO 53007 --- [main] t.repositoryTest                         : testActed_In:[
+	{
+		"id":69,
+		"movie":{
+			"id":52,
+			"relationship":[],
+			"released":1997,
+			"tagline":"A comedy from the heart that goes for the throat.",
+			"title":"As Good as It Gets"
+		},
+		"person":{
+			"born":1963,
+			"id":53,
+			"name":"Helen Hunt",
+			"relationship":[
+				{"$ref":"$[0]"}
+			]
+		},
+		"roles":[
+			"Carol Connelly"
+		]
+	}
+]
+2022-12-22 14:46:54.537  INFO 53007 --- [SpringContextShutdownHook] o.n.o.d.b.d.BoltDriver                   : Shutting down Bolt driver org.neo4j.driver.internal.InternalDriver@2b43f314 
