@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TodoSkill Agent</title>
+  <link rel="stylesheet" href="/static/style.css?v=20260317-2">
+</head>
+<body>
+  <main class="layout">
+    <section class="panel hero">
+      <div class="eyebrow">TodoSkill / LangGraph / llama.cpp</div>
+      <h1>本地多模态待办助手</h1>
+      <p>输入文字，或上传一张图片，让本地模型帮你提取并管理待办事项。</p>
+      <form id="chat-form" class="composer">
+        <textarea id="message" name="message" placeholder="例如：帮我把图片里的事项整理成待办，并创建进去"></textarea>
+        <div class="composer-row">
+          <input id="image" name="image" type="file" accept="image/*">
+          <button type="submit">发送</button>
+        </div>
+      </form>
+      <div id="status" class="status">等待输入</div>
+    </section>
+
+    <section class="panel conversation">
+      <div class="section-title">最近问答</div>
+      <div id="messages" class="messages">
+        {% for item in history %}
+        <article class="message-card">
+          <div class="message-meta">
+            <span class="message-title">{{ item.title }}</span>
+            <span>{{ item.created_at }}</span>
+          </div>
+          <div class="message-block">
+            <label>你</label>
+            <div class="plain-text">{{ item.user_message }}</div>
+          </div>
+          <div class="message-block assistant">
+            <label>助手</label>
+            <div class="markdown-body" data-markdown>{{ item.assistant_message }}</div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("chat-form");
+    const statusEl = document.getElementById("status");
+    const messagesEl = document.getElementById("messages");
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
+    function renderInlineMarkdown(text) {
+      return escapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code>$1</code>");
+    }
+
+    function renderMarkdown(markdown) {
+      const source = (markdown || "").replace(/\r\n/g, "\n").trim();
+      if (!source) {
+        return "<p>暂无内容</p>";
+      }
+
+      const lines = source.split("\n");
+      const html = [];
+      let inList = false;
+      let tableBuffer = [];
+
+      function closeList() {
+        if (inList) {
+          html.push("</ul>");
+          inList = false;
+        }
+      }
+
+      function flushTable() {
+        if (tableBuffer.length < 2) {
+          tableBuffer = [];
+          return;
+        }
+        const rows = tableBuffer
+          .map((line) => line.trim())
+          .filter(Boolean)
+          .map((line) => line.replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim()));
+        if (rows.length < 2) {
+          tableBuffer = [];
+          return;
+        }
+        const header = rows[0];
+        const body = rows.slice(2);
+        const columnClassMap = {
+          "任务编号": "col-id",
+          "序号": "col-id",
+          "任务名称": "col-title",
+          "待办事项": "col-title",
+          "状态": "col-status",
+          "开始时间": "col-time"
+        };
+        const taskIdText = header.includes("任务编号") ? "任务编号" : (header.includes("序号") ? "序号" : "");
+        const taskTitleText = header.includes("任务名称") ? "任务名称" : (header.includes("待办事项") ? "待办事项" : "");
+        const taskStatusText = header.includes("状态") ? "状态" : "";
+        const taskTimeText = header.includes("开始时间") ? "开始时间" : "";
+
+        if (taskTitleText && taskStatusText && (taskIdText || taskTimeText)) {
+          html.push("<div class=\"task-table-card-list\">");
+          for (const row of body) {
+            const rowData = Object.fromEntries(
+              row.map((cell, index) => [header[index] || `col-${index}`, cell])
+            );
+            const rowId = rowData[taskIdText] || "";
+            const rowTitle = rowData[taskTitleText] || "";
+            const rowStatus = rowData[taskStatusText] || "";
+            const rowTime = rowData[taskTimeText] || "";
+            html.push("<article class=\"task-row-card\">");
+            html.push("<div class=\"task-row-heading\">");
+            if (rowId) {
+              html.push(`<span class=\"task-row-id\">${renderInlineMarkdown(rowId)}</span>`);
+            }
+            html.push(`<div class=\"task-row-title\">${renderInlineMarkdown(rowTitle || "未命名任务")}</div>`);
+            html.push("</div>");
+            html.push("<div class=\"task-row-meta\">");
+            if (rowStatus) {
+              html.push(
+                "<div class=\"task-meta-block\">" +
+                `<span class="task-meta-label">${taskStatusText}</span>` +
+                `<span class="status-pill">${renderInlineMarkdown(rowStatus)}</span>` +
+                "</div>"
+              );
+            }
+            if (rowTime) {
+              html.push(
+                "<div class=\"task-meta-block task-meta-time\">" +
+                `<span class="task-meta-label">${taskTimeText}</span>` +
+                `<span class="task-meta-value">${renderInlineMarkdown(rowTime)}</span>` +
+                "</div>"
+              );
+            }
+            html.push("</div>");
+            html.push("</article>");
+          }
+          html.push("</div>");
+          tableBuffer = [];
+          return;
+        }
+        html.push("<div class=\"table-wrap\"><table>");
+        html.push(
+          "<thead><tr>" +
+          header.map((cell) => {
+            const columnClass = columnClassMap[cell] || "";
+            return `<th class="${columnClass}">${renderInlineMarkdown(cell)}</th>`;
+          }).join("") +
+          "</tr></thead>"
+        );
+        html.push("<tbody>");
+        for (const row of body) {
+          html.push(
+            "<tr>" +
+            row.map((cell, index) => {
+              const headerName = header[index] || "";
+              const columnClass = columnClassMap[headerName] || "";
+              let cellHtml = renderInlineMarkdown(cell);
+              if (columnClass === "col-status") {
+                cellHtml = `<span class="status-pill">${cellHtml}</span>`;
+              }
+              return `<td class="${columnClass}">${cellHtml}</td>`;
+            }).join("") +
+            "</tr>"
+          );
+        }
+        html.push("</tbody></table></div>");
+        tableBuffer = [];
+      }
+
+      for (const rawLine of lines) {
+        const line = rawLine.trim();
+        if (!line) {
+          closeList();
+          flushTable();
+          continue;
+        }
+
+        if (line.startsWith("|") && line.endsWith("|")) {
+          closeList();
+          tableBuffer.push(line);
+          continue;
+        }
+
+        flushTable();
+
+        if (line.startsWith("### ")) {
+          closeList();
+          html.push(`<h3>${renderInlineMarkdown(line.slice(4))}</h3>`);
+          continue;
+        }
+        if (line.startsWith("## ")) {
+          closeList();
+          html.push(`<h2>${renderInlineMarkdown(line.slice(3))}</h2>`);
+          continue;
+        }
+        if (line.startsWith("# ")) {
+          closeList();
+          html.push(`<h1>${renderInlineMarkdown(line.slice(2))}</h1>`);
+          continue;
+        }
+        if (/^---+$/.test(line)) {
+          closeList();
+          html.push("<hr>");
+          continue;
+        }
+        if (line.startsWith("- ")) {
+          if (!inList) {
+            html.push("<ul>");
+            inList = true;
+          }
+          html.push(`<li>${renderInlineMarkdown(line.slice(2))}</li>`);
+          continue;
+        }
+
+        closeList();
+        html.push(`<p>${renderInlineMarkdown(line)}</p>`);
+      }
+
+      closeList();
+      flushTable();
+      return html.join("");
+    }
+
+    function hydrateMarkdown() {
+      document.querySelectorAll("[data-markdown]").forEach((element) => {
+        element.innerHTML = renderMarkdown(element.textContent);
+      });
+    }
+
+    function addMessageCard(title, userText, assistantText, createdAt) {
+      const card = document.createElement("article");
+      card.className = "message-card";
+      card.innerHTML = `
+        <div class="message-meta">
+          <span class="message-title"></span>
+          <span></span>
+        </div>
+        <div class="message-block">
+          <label>你</label>
+          <div class="plain-text"></div>
+        </div>
+        <div class="message-block assistant">
+          <label>助手</label>
+          <div class="markdown-body" data-markdown></div>
+        </div>
+      `;
+      const metaValues = card.querySelectorAll(".message-meta span");
+      metaValues[0].textContent = title;
+      metaValues[1].textContent = createdAt;
+      card.querySelector(".plain-text").textContent = userText;
+      card.querySelector("[data-markdown]").textContent = assistantText;
+      hydrateMarkdown();
+      messagesEl.prepend(card);
+    }
+
+    hydrateMarkdown();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const message = document.getElementById("message").value.trim();
+      if (!message) {
+        statusEl.textContent = "请输入内容后再发送";
+        return;
+      }
+
+      const formData = new FormData(form);
+      statusEl.textContent = "正在处理，请稍候...";
+
+      try {
+        const response = await fetch("/chat", {
+          method: "POST",
+          body: formData
+        });
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || `HTTP ${response.status}`);
+        }
+        const data = await response.json();
+        addMessageCard(
+          data.title,
+          message,
+          data.assistant_message,
+          new Date().toLocaleString("zh-CN", { hour12: false })
+        );
+        form.reset();
+        if (data.parse_error) {
+          statusEl.textContent = data.parse_error;
+        } else {
+          statusEl.textContent = `完成：${data.intent || "chat"}`;
+        }
+      } catch (error) {
+        statusEl.textContent = `请求失败：${error}`;
+      }
+    });
+  </script>
+</body>
+</html>
