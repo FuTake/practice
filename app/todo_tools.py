@@ -34,6 +34,11 @@ class ToolResult:
 
 
 class TodoRepository:
+    @staticmethod
+    def has_column(table: str, column: str) -> bool:
+        rows = db.fetch_all(f"PRAGMA table_info({table})")
+        return any(str(row["name"]) == column for row in rows)
+
     def create_task(self, title: str, created_at: str | None = None) -> ToolResult:
         start_time = parse_relative_time(created_at) or normalize_db_time(created_at) or now_str()
         new_id, affected = db.execute_write(
@@ -153,15 +158,29 @@ class TodoRepository:
         log_todo_metric("reopen", "write_count", affected, f"task_id={task_id}")
         return ToolResult(True, "reopen", f"已重新打开任务 #{task_id}")
 
-    def search_tasks(self, query: str) -> ToolResult:
+    def search_tasks(self, query: str, status: str | None = None) -> ToolResult:
+        keyword = f"%{query}%"
+        has_remark = self.has_column("tasks", "remark")
+        sql = "SELECT id, title, status, created_at, completed_at, duration FROM tasks WHERE "
+        params: list[Any]
+        if has_remark:
+            sql += "(title LIKE ? OR COALESCE(remark, '') LIKE ?)"
+            params = [keyword, keyword]
+        else:
+            sql += "title LIKE ?"
+            params = [keyword]
+        
+        if status in {"pending", "done"}:
+            sql += " AND status = ?"
+            params.append(status)
+            
+        sql += " ORDER BY id DESC"
+        
         rows = [
             dict(row)
-            for row in db.fetch_all(
-                "SELECT id, title, status, created_at FROM tasks WHERE title LIKE ? ORDER BY id DESC",
-                (f"%{query}%",),
-            )
+            for row in db.fetch_all(sql, tuple(params))
         ]
-        log_todo_metric("search", "query_count", len(rows), f"query={query}")
+        log_todo_metric("search", "query_count", len(rows), f"query={query}, status={status}")
         if not rows:
             return ToolResult(True, "search", f"## 搜索结果\n\n没有找到包含“{query}”的任务。", {"tasks": []})
         return ToolResult(

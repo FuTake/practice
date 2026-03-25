@@ -53,6 +53,8 @@ TIME_HINT_KEYWORDS = {
     "下午",
     "晚上",
 }
+SEARCH_TRIGGER_WORDS = {"搜索", "查找", "查询", "检索"}
+SEARCH_CONTEXT_WORDS = {"待办", "任务", "事项"}
 
 
 def prepare_input(state: AgentState) -> AgentState:
@@ -121,7 +123,8 @@ def intent_router(state: AgentState) -> AgentState:
 12. “完成时间”“于某时完成”“在某时完成”“某时已完成” 都表示 `completed_at`。
 13. 像“添加待办-这是一个测试任务创建时间为2026年3月15日17点23分32秒”这种句子，intent 必须是 `create`，title 是任务标题，`created_at` 是 `2026-03-15 17:23:32`。
 14. 像“#16任务完成时间为2026年3月16日20点30分00秒”这种句子，intent 必须是 `done`，`task_id` 是 16，`completed_at` 是 `2026-03-16 20:30:00`。
-""".strip()
+15. 像“查一下运营监控相关的未完成待办事项”这种句子，intent 应该是 `search`，`query` 是 `运营监控`，`status` 是 `pending`。
+	""".strip()
     user_prompt = f"""
 用户文本:
 {state["normalized_message"]}
@@ -243,7 +246,7 @@ def validate_action_args(
     if intent == "search" and not args.get("query"):
         return args, True
 
-    if intent == "list" and not args.get("status"):
+    if intent in {"list", "search"} and not args.get("status"):
         if "未完成" in original_message or "待处理" in original_message:
             args["status"] = "pending"
         elif "已完成" in original_message:
@@ -321,6 +324,7 @@ def build_clarification_message(args: dict[str, Any], original_message: str) -> 
 def heuristic_route(message: str, vision_summary: str | None) -> dict[str, Any]:
     """只做兜底，不再作为主判定逻辑。"""
     text = message.lower()
+    looks_like_search = is_keyword_search_request(message)
     is_pending_query = (
         "未完成" in message
         or "待处理" in message
@@ -348,15 +352,19 @@ def heuristic_route(message: str, vision_summary: str | None) -> dict[str, Any]:
         any(word in message for word in ["查看", "列出", "显示", "待办", "哪些", "还有"])
         or is_pending_query
         or is_done_query
-    ) and "搜索" not in message:
+    ) and not looks_like_search:
         payload["intent"] = "list"
         if is_done_query and "未完成" not in message:
             payload["status"] = "done"
         elif is_pending_query or "pending" in text:
             payload["status"] = "pending"
-    elif any(word in message for word in ["搜索", "查找"]):
+    elif looks_like_search:
         payload["intent"] = "search"
-        payload["query"] = message.replace("搜索", "").replace("查找", "").strip()
+        payload["query"] = extract_search_query(message)
+        if is_done_query and "未完成" not in message:
+            payload["status"] = "done"
+        elif is_pending_query or "pending" in text:
+            payload["status"] = "pending"
     elif any(word in message for word in ["完成", "搞定", "done"]) and "未完成" not in message:
         payload["intent"] = "done"
         payload["completed_at"] = extract_explicit_completed_time(message)
@@ -441,6 +449,60 @@ def extract_title_for_create(message: str, vision_summary: str | None) -> str:
     return cleaned or message
 
 
+def is_keyword_search_request(message: str) -> bool:
+    if any(word in message for word in SEARCH_TRIGGER_WORDS):
+        return True
+    if "相关" in message and any(word in message for word in SEARCH_CONTEXT_WORDS):
+        return True
+    if any(word in message for word in ["包含", "有关", "关于"]) and any(
+        word in message for word in SEARCH_CONTEXT_WORDS
+    ):
+        return True
+    return False
+
+
+def extract_search_query(message: str) -> str:
+    cleaned = message.strip()
+    cleaned = re.sub(r"^(请|帮我|麻烦|我想|想|请帮我|帮忙)+", "", cleaned).strip()
+    cleaned = re.sub(r"^(查一下|查下|查查|查询一下|搜索一下|搜一下|看一下|看下|看看)", "", cleaned).strip()
+    cleaned = re.sub(r"^(搜索|查找|查询|检索)[：:\s]*", "", cleaned).strip()
+
+    patterns = [
+        r"(.+?)(?:相关|有关|关于)(?:的)?(?:未完成|已完成|待处理|pending|done)?(?:待办事项|待办|任务|事项)?[？?。！!]*$",
+        r"(.+?)(?:未完成|已完成|待处理|pending|done)(?:的)?(?:待办事项|待办|任务|事项)?[？?。！!]*$",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, cleaned)
+        if match:
+            candidate = match.group(1).strip("：:，,。；;！？? ")
+            if candidate:
+                return candidate
+
+    suffixes = [
+        "相关的未完成待办事项",
+        "相关的未完成待办",
+        "相关的已完成待办事项",
+        "相关的已完成待办",
+        "相关待办事项",
+        "相关待办",
+        "未完成待办事项",
+        "未完成待办",
+        "已完成待办事项",
+        "已完成待办",
+        "待办事项",
+        "待办",
+        "任务",
+        "事项",
+    ]
+    for suffix in suffixes:
+        if cleaned.endswith(suffix):
+            candidate = cleaned[: -len(suffix)].strip("：:，,。；;！？? ")
+            if candidate:
+                return candidate
+
+    return cleaned
+
+
 def extract_explicit_created_time(message: str) -> str:
     patterns = [
         r"(?:创建时间|开始时间)[为是:：\s]*([0-9零一二三四五六七八九十两年月日点时分秒:\-T\/Z\+\s]+)",
@@ -495,7 +557,10 @@ def execute_tool(state: AgentState) -> AgentState:
     elif intent == "reopen":
         result = execute_batch_action("reopen", task_ids or [int(args.get("task_id") or 0)])
     elif intent == "search":
-        result = repo.search_tasks(query=args.get("query") or state["normalized_message"])
+        result = repo.search_tasks(
+            query=args.get("query") or state["normalized_message"],
+            status=args.get("status")
+        )
     else:
         result = ToolResult(True, "chat", "", {"tasks": []})
 
