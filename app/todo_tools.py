@@ -229,6 +229,7 @@ def render_task_list_markdown(title: str, rows: list[dict[str, Any]]) -> str:
         lines.extend(
             [
                 f"### #{row['id']} {row['title']}",
+                f"- 任务ID：{row['id']}",
                 f"- 状态：`{row['status']}`",
                 f"- 开始时间：{row['created_at']}",
                 f"- 耗时：{duration}",

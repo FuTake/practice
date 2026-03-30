@@ -599,6 +599,56 @@ def execute_batch_action(action: str, task_ids: list[int], **kwargs: Any) -> Too
     return ToolResult(ok, action, prefix + "\n\n" + "\n\n".join(f"- {message}" for message in messages), payload)
 
 
+def extract_task_ids_from_payload(payload: dict[str, Any]) -> list[int]:
+    task_ids: list[int] = []
+
+    def append_task_id(value: Any) -> None:
+        if isinstance(value, bool):
+            return
+        if isinstance(value, int) and value > 0 and value not in task_ids:
+            task_ids.append(value)
+
+    append_task_id(payload.get("id"))
+
+    task = payload.get("task")
+    if isinstance(task, dict):
+        append_task_id(task.get("id"))
+
+    tasks = payload.get("tasks")
+    if isinstance(tasks, list):
+        for item in tasks:
+            if isinstance(item, dict):
+                append_task_id(item.get("id"))
+
+    raw_task_ids = payload.get("task_ids")
+    if isinstance(raw_task_ids, list):
+        for task_id in raw_task_ids:
+            append_task_id(task_id)
+
+    results = payload.get("results")
+    if isinstance(results, list):
+        for item in results:
+            if isinstance(item, dict):
+                append_task_id(item.get("id"))
+
+    return task_ids
+
+
+def ensure_reply_contains_task_ids(reply: str, payload: dict[str, Any]) -> str:
+    task_ids = extract_task_ids_from_payload(payload)
+    if not task_ids:
+        return reply
+
+    task_id_text = "、".join(str(task_id) for task_id in task_ids)
+    explicit_markers = [f"任务ID：{task_id}" for task_id in task_ids]
+    hash_markers = [f"#{task_id}" for task_id in task_ids]
+    if any(marker in reply for marker in explicit_markers) or all(marker in reply for marker in hash_markers):
+        return reply
+
+    suffix = f"\n\n任务ID：{task_id_text}"
+    return (reply.rstrip() + suffix).strip()
+
+
 def write_response(state: AgentState) -> AgentState:
     if state.get("needs_clarification"):
         reply = state.get("clarification_message") or "请补充更明确的信息。"
@@ -628,7 +678,7 @@ def write_response(state: AgentState) -> AgentState:
         reply = tool_result.get("message", "")
         if tool_result.get("message"):
             polished = llama_client.chat(
-                system_prompt="你是一个中文 Todo 助手。请基于工具执行结果回复用户，语气直接，避免编造。如果工具结果已经足够清楚，可以原样简化复述。",
+                system_prompt="你是一个中文 Todo 助手。请基于工具执行结果回复用户，语气直接，避免编造。如果工具结果已经足够清楚，可以原样简化复述。只要结果里出现了任务编号，就必须在回复中保留任务ID。",
                 user_prompt=context,
                 temperature=0.2,
                 max_tokens=300,
@@ -637,6 +687,8 @@ def write_response(state: AgentState) -> AgentState:
                 reply = polished
     if not reply:
         reply = tool_result.get("message") or "这次请求已处理，但模型没有生成额外说明。"
+    if intent != "chat":
+        reply = ensure_reply_contains_task_ids(reply, tool_result.get("payload") or {})
 
     title_prompt = f"""
 请为下面这轮问答生成一个不超过18个字的中文标题，只输出标题本身。
